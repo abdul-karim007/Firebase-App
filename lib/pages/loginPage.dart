@@ -1,5 +1,6 @@
 import 'package:class3julyfirebase/constants/clr.dart';
 import 'package:class3julyfirebase/functions/button.dart';
+import 'package:class3julyfirebase/functions/cstmDialog.dart';
 import 'package:class3julyfirebase/functions/textField.dart';
 import 'package:class3julyfirebase/pages/home.dart';
 import 'package:class3julyfirebase/pages/signup.dart';
@@ -13,15 +14,15 @@ final TextEditingController passwordController = TextEditingController();
 SharedPreferences? prefs;
 
 class SignIn extends StatefulWidget {
+  const SignIn({Key? key}) : super(key: key);
+
   @override
   State<SignIn> createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
-  Future init() async {
-    prefs = await SharedPreferences.getInstance();
-  }
-
+  late String finalEmail;
+  late String finalpassword;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,8 +64,10 @@ class _SignInState extends State<SignIn> {
             } on FirebaseAuthException catch (e) {
               if (e.code == 'user-not-found') {
                 print('No user found for that email.');
+                customDia(context, 'No user Found');
               } else if (e.code == 'wrong-password') {
                 print('Wrong password provided for that user.');
+                customDia(context, 'No user Found');
               }
             }
           }, 'Login', context),
@@ -125,8 +128,8 @@ class _SignInState extends State<SignIn> {
 
   save(context) async {
     await SharedPreferences.getInstance();
-    prefs?.setString('email', emailController.text.toString());
-    prefs?.setString('password', passwordController.text.toString());
+    prefs?.setString('email', emailController.text);
+    prefs?.setString('password', passwordController.text);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => Home()),

@@ -11,6 +11,8 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var email = prefs.getString('email');
   var password = prefs.getString('password');
+  print(email);
+  print(password);
   runApp(MaterialApp(
     home: email == null || password == null ? SignIn() : Home(),
     debugShowCheckedModeBanner: false,

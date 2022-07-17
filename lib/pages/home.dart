@@ -90,7 +90,7 @@ class _HomeState extends State<Home> {
                   textStyle:
                       MaterialStateProperty.all(TextStyle(color: Colors.white)),
                 ),
-                child: Text('Log Out'))
+                child: Text('Log Out')),
           ],
         ),
       ),
